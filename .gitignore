@@ -1,0 +1,8 @@
+node_modules/
+src/.vs/
+*.user
+src/packages/
+src/Bsg.Ef6.Tests/obj/
+src/Bsg.Ef6.Tests/bin/
+src/Bsg.Ef6/obj/
+src/Bsg.Ef6/bin/
