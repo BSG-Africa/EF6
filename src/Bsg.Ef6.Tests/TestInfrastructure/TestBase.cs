@@ -64,11 +64,13 @@
         {
             var alphaPrimaryRepo = requestContainer.GetService<IPrimaryRepository<Alpha>>();
             var betaPrimaryRepo = requestContainer.GetService<IPrimaryRepository<Beta>>();
+            var gammaPrimaryRepo = requestContainer.GetService<IPrimaryRepository<Gamma>>();
             var contextSession = requestContainer.GetService<IDbContextSession<PrimaryContext>>();
 
             using (var transaction = contextSession.StartNewTransaction())
             {
                 betaPrimaryRepo.Truncate(transaction);
+                gammaPrimaryRepo.Truncate(transaction);
                 alphaPrimaryRepo.TruncateWithForeignKeys(transaction);
                 transaction.Commit();
             }

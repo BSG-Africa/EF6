@@ -62,16 +62,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Configurations\GammaConfiguration.cs" />
     <Compile Include="Data\Configurations\SchemaScopedConfiguration.cs" />
+    <Compile Include="Data\Domain\Gamma.cs" />
     <Compile Include="Data\Repo\IPrimaryRepository.cs" />
     <Compile Include="Data\Entity\IPrimaryEntity.cs" />
     <Compile Include="Data\Repo\PrimaryRepository.cs" />
     <Compile Include="Extensions\ServiceProviderExtensions.cs" />
     <Compile Include="TestCases\TruncateTests.cs" />
-    <Compile Include="TestCases\BulkSelectAndInsertTests.cs" />
+    <Compile Include="TestCases\BulkSelectAndAddTests.cs" />
     <Compile Include="TestCases\BulkSelectAndUpdateTests.cs" />
     <Compile Include="TestCases\BulkUpdateTests.cs" />
-    <Compile Include="TestCases\BulkInsertTests.cs" />
+    <Compile Include="TestCases\BulkAddTests.cs" />
     <Compile Include="TestCases\BulkDeleteTests.cs" />
     <Compile Include="TestCases\NonBulkTests.cs" />
     <Compile Include="TestCases\RepoTransactionTests.cs" />
@@ -90,7 +92,7 @@
     <Compile Include="Data\Domain\One.cs" />
     <Compile Include="Data\Domain\Two.cs" />
     <Compile Include="Data\Wrappers\TwoWrapper.cs" />
-    <Compile Include="Data\Wrappers\BetaWrapper.cs" />
+    <Compile Include="Data\Wrappers\AlphaWrapper.cs" />
     <Compile Include="Services\AlphaRepository.cs" />
     <Compile Include="Services\IAlphaRepository.cs" />
     <Compile Include="Services\IOneRepository.cs" />

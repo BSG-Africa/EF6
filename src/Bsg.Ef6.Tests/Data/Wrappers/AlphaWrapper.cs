@@ -3,7 +3,7 @@
     using Domain;
     using Ef6.Domain;
 
-    public class BetaWrapper : Beta, IWrapperEntity
+    public class AlphaWrapper : Alpha, IWrapperEntity
     {
     }
 }
