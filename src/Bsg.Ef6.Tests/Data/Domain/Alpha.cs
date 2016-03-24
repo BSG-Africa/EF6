@@ -1,13 +1,13 @@
 ﻿namespace Bsg.Ef6.Tests.Data.Domain
 {
-    using Context;
-    using Ef6.Domain;
+    using Entity;
 
-    public class Alpha : IEntity<PrimaryContext>
+    public class Alpha : IPrimaryEntity
     {
         public virtual int Id { get; set; }
 
         public virtual string Name { get; set; }
 
+        public virtual bool IsActive { get; set; }
     }
 }

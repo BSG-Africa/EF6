@@ -1,9 +1,8 @@
 ﻿namespace Bsg.Ef6.Tests.Data.Domain
 {
-    using Context;
-    using Ef6.Domain;
+    using Entity;
 
-    public class Beta : IEntity<PrimaryContext>
+    public class Beta : IPrimaryEntity
     {
         public virtual int Id { get; set; }
         

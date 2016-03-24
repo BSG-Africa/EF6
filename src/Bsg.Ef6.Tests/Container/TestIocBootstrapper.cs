@@ -4,6 +4,8 @@
     using System.Reflection;
     using Autofac;
     using Context;
+    using Data.Entity;
+    using Data.Repo;
     using Extensions;
     using Mapping;
     using Repo;
@@ -23,6 +25,7 @@
 
             // register generic repository as open generic 
             builder.RegisterGeneric(typeof(GenericRepository<,>)).As(typeof(IGenericRepository<,>));
+            builder.RegisterGeneric(typeof(PrimaryRepository<>)).As(typeof(IPrimaryRepository<>));
 
             // register individual singleton per scope services 
             // or other services which don't fit default conventions

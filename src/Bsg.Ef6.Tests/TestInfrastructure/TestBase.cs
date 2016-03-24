@@ -1,4 +1,4 @@
-﻿namespace Bsg.Ef6.Tests
+﻿namespace Bsg.Ef6.Tests.TestInfrastructure
 {
     using System;
     using System.Data.Entity;
@@ -36,6 +36,26 @@
         protected IServiceProvider BuildRequestContainer()
         {
             return this.applicationContainer.CreateScopedContainer();
+        }
+
+        protected TException ActionWithException<TException>(Action action) 
+            where TException : Exception
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            try
+            {
+                action();
+            }
+            catch (TException exception)
+            {
+                return exception;
+            }
+
+            return null;
         }
     }
 }
