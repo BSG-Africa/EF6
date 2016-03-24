@@ -242,7 +242,17 @@
 
             var selectLines = fullSelect.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
 
-            var actualProperties = selectLines.Count(e => !e.TrimStart().StartsWith("FROM", StringComparison.Ordinal));
+            var actualProperties = 0;
+
+            for (var i = 1; i < selectLines.Count; i++)
+            {
+                if (selectLines[i].TrimStart().StartsWith("FROM", StringComparison.Ordinal))
+                {
+                    break;
+                }
+
+                actualProperties++;
+            }
 
             if (actualProperties > expectedBindingsCount)
             {
