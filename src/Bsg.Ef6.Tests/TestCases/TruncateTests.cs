@@ -1,6 +1,5 @@
 ﻿namespace Bsg.Ef6.Tests.TestCases
 {
-    using System;
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using Context;
@@ -33,9 +32,8 @@
             };
 
             alphaPrimaryRepo.AddOne(alpha);
-            Assert.IsTrue(contextSession.HasChanges());
             contextSession.CommitChanges();
-            Assert.Greater(alpha.Id, 0);
+            Assert.That(alpha.Id, Is.GreaterThan(0));
 
             var betas = new List<Beta>();
             var noOfRecordsToInsert = 1000;
@@ -53,7 +51,7 @@
 
             // Assume
             var betasBeforeTruncate = betaPrimaryRepo.CountAll();
-            Assert.Greater(betasBeforeTruncate, 0);
+            Assert.That(betasBeforeTruncate, Is.GreaterThan(0));
 
             // Action
             using (var transaction = contextSession.StartNewTransaction())
@@ -64,7 +62,7 @@
 
             // Assert
             var betasAfterTruncate = betaPrimaryRepo.CountAll();
-            Assert.AreEqual(betasAfterTruncate, 0);
+            Assert.That(betasAfterTruncate, Is.EqualTo(0));
         }
 
         [Test]
@@ -85,9 +83,8 @@
             };
 
             alphaPrimaryRepo.AddOne(alpha);
-            Assert.IsTrue(contextSession.HasChanges());
             contextSession.CommitChanges();
-            Assert.Greater(alpha.Id, 0);
+            Assert.That(alpha.Id, Is.GreaterThan(0));
 
             var betas = new List<Beta>();
             var noOfRecordsToInsert = 1000;
@@ -105,7 +102,7 @@
 
             // Assume
             var betasBeforeTruncate = betaPrimaryRepo.CountAll();
-            Assert.Greater(betasBeforeTruncate, 0);
+            Assert.That(betasBeforeTruncate, Is.GreaterThan(0));
 
             // Action
             using (var transaction = contextSession.StartNewTransaction())
@@ -129,8 +126,8 @@
             var betasAfterTruncateAndOneAdd = betaPrimaryRepo.CountAll();
             var onlyBetaPrimaryRepoId = betaPrimaryRepo.FindOne().Id;
 
-            Assert.AreEqual(betasAfterTruncateAndOneAdd, 1);
-            Assert.AreEqual(onlyBetaPrimaryRepoId, 1);
+            Assert.That(betasAfterTruncateAndOneAdd, Is.EqualTo(1));
+            Assert.That(onlyBetaPrimaryRepoId, Is.EqualTo(1));
         }
 
         [Test]
@@ -159,7 +156,7 @@
 
             // Assume
             var alphasBeforeTruncate = alphaPrimaryRepo.CountAll();
-            Assert.Greater(alphasBeforeTruncate, 0);
+            Assert.That(alphasBeforeTruncate, Is.GreaterThan(0));
 
             // Action
             using (var transaction = contextSession.StartNewTransaction())
@@ -170,7 +167,7 @@
 
             // Assert
             var alphasAfterTruncate = alphaPrimaryRepo.CountAll(e => e.IsActive);
-            Assert.AreEqual(alphasAfterTruncate, 0);
+            Assert.That(alphasAfterTruncate, Is.EqualTo(0));
         }
 
         [Test]
@@ -219,8 +216,8 @@
             var alphasAfterTruncateAndOneAdd = alphaPrimaryRepo.CountAll();
             var onlyAlphaId = alphaPrimaryRepo.FindOne().Id;
 
-            Assert.AreEqual(alphasAfterTruncateAndOneAdd, 1);
-            Assert.AreEqual(onlyAlphaId, 1);
+            Assert.That(alphasAfterTruncateAndOneAdd, Is.EqualTo(1));
+            Assert.That(onlyAlphaId, Is.EqualTo(1));
         }
 
         [Test]
@@ -243,25 +240,9 @@
             });
 
             // Assert
-            Assert.NotNull(result);
-            Assert.AreEqual(result.Message, "Cannot truncate table 'dbo.Alpha' because it is being referenced by a FOREIGN KEY constraint.");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Message, Is.EqualTo("Cannot truncate table 'dbo.Alpha' because it is being referenced by a FOREIGN KEY constraint."));
         }
-        #endregion
-
-        #region Private Methods
-        private void CleanPrimarySchema(IServiceProvider requestContainer)
-        {
-            var alphaPrimaryRepo = requestContainer.GetService<IPrimaryRepository<Alpha>>();
-            var betaPrimaryRepo = requestContainer.GetService<IPrimaryRepository<Beta>>();
-            var contextSession = requestContainer.GetService<IDbContextSession<PrimaryContext>>();
-
-            using (var transaction = contextSession.StartNewTransaction())
-            {
-                betaPrimaryRepo.Truncate(transaction);
-                alphaPrimaryRepo.TruncateWithForeignKeys(transaction);
-                transaction.Commit();
-            }
-        } 
         #endregion
     }
 }

@@ -26,8 +26,8 @@
 
             // Assume
             var firstcount = alphaGenericRepo.CountAll();
-            Assert.AreEqual(firstcount, alphaPrimaryRepo.CountAll());
-            Assert.AreEqual(firstcount, alphaRepo.CountAll());
+            Assert.That(firstcount, Is.EqualTo(alphaPrimaryRepo.CountAll()));
+            Assert.That(firstcount, Is.EqualTo(alphaRepo.CountAll()));
 
             // Action
             var alphas = new List<Alpha>();
@@ -46,9 +46,9 @@
 
             // Assert
             var secondcount = alphaGenericRepo.CountAll();
-            Assert.AreEqual(firstcount + noOfRecordsToInsert, secondcount);
-            Assert.AreEqual(secondcount, alphaPrimaryRepo.CountAll());
-            Assert.AreEqual(secondcount, alphaRepo.CountAll());
+            Assert.That(firstcount + noOfRecordsToInsert, Is.EqualTo(secondcount));
+            Assert.That(secondcount, Is.EqualTo(alphaPrimaryRepo.CountAll()));
+            Assert.That(secondcount, Is.EqualTo(alphaRepo.CountAll()));
         }
 
         [Test]
@@ -73,7 +73,7 @@
             var genericTracked = alphaGenericRepo.FindOneTracked(e => e.Id == alpha.Id);
 
             // Assume
-            Assert.Greater(alpha.Id, 0);
+            Assert.That(alpha.Id, Is.GreaterThan(0));
 
             // Action
             var changed = "Changed";
@@ -82,8 +82,8 @@
             // Assert
             var primaryTracked = alphaPrimaryRepo.FindOneTracked(e => e.Id == alpha.Id);
             var alphaTracked = alphaRepo.FindOneTracked(e => e.Id == alpha.Id);
-            Assert.AreEqual(primaryTracked.Name, changed);
-            Assert.AreEqual(alphaTracked.Name, changed);
+            Assert.That(primaryTracked.Name, Is.EqualTo(changed));
+            Assert.That(alphaTracked.Name, Is.EqualTo(changed));
         } 
         #endregion
     }

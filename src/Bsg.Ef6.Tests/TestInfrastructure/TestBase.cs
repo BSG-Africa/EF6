@@ -5,6 +5,8 @@
     using Container;
     using Context;
     using Data.Context;
+    using Data.Domain;
+    using Data.Repo;
     using Extensions;
     using NUnit.Framework;
 
@@ -56,6 +58,20 @@
             }
 
             return null;
+        }
+
+        protected void CleanPrimarySchema(IServiceProvider requestContainer)
+        {
+            var alphaPrimaryRepo = requestContainer.GetService<IPrimaryRepository<Alpha>>();
+            var betaPrimaryRepo = requestContainer.GetService<IPrimaryRepository<Beta>>();
+            var contextSession = requestContainer.GetService<IDbContextSession<PrimaryContext>>();
+
+            using (var transaction = contextSession.StartNewTransaction())
+            {
+                betaPrimaryRepo.Truncate(transaction);
+                alphaPrimaryRepo.TruncateWithForeignKeys(transaction);
+                transaction.Commit();
+            }
         }
     }
 }

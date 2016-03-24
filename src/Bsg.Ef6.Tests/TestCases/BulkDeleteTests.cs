@@ -34,7 +34,7 @@
 
             // Assume
             var activeAlphasBeforeDelete = alphaPrimaryRepo.CountAll(e => e.IsActive);
-            Assert.Greater(activeAlphasBeforeDelete, 0);
+            Assert.That(activeAlphasBeforeDelete, Is.GreaterThan(0));
 
             var alphasToDeleteQuery = alphaPrimaryRepo.FindAll(e => e.IsActive);
 
@@ -43,8 +43,8 @@
 
             // Assert
             var activeAlphasAfterDelete = alphaPrimaryRepo.CountAll(e => e.IsActive);
-            Assert.AreEqual(activeAlphasAfterDelete, 0);
-            Assert.AreEqual(recordsDeleted, activeAlphasBeforeDelete);
+            Assert.That(activeAlphasAfterDelete, Is.EqualTo(0));
+            Assert.That(recordsDeleted, Is.EqualTo(activeAlphasBeforeDelete));
         }
 
         [Test]
@@ -70,15 +70,15 @@
 
             // Assume
             var activeAlphasBeforeDelete = alphaPrimaryRepo.CountAll(e => e.IsActive);
-            Assert.Greater(activeAlphasBeforeDelete, 0);
+            Assert.That(activeAlphasBeforeDelete, Is.GreaterThan(0));
 
             // Action
             var recordsDeleted = alphaPrimaryRepo.BulkDelete(e => e.IsActive);
 
             // Assert
             var activeAlphasAfterDelete = alphaPrimaryRepo.CountAll(e => e.IsActive);
-            Assert.AreEqual(activeAlphasAfterDelete, 0);
-            Assert.AreEqual(recordsDeleted, activeAlphasBeforeDelete);
+            Assert.That(activeAlphasAfterDelete, Is.EqualTo(0));
+            Assert.That(recordsDeleted, Is.EqualTo(activeAlphasBeforeDelete));
         } 
         #endregion
     }
