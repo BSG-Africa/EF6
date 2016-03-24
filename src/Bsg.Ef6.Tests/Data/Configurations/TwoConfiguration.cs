@@ -1,11 +1,11 @@
 ﻿namespace Bsg.Ef6.Tests.Data.Configurations
 {
-    using System.Data.Entity.ModelConfiguration;
     using Domain;
 
-    public class TwoConfiguration : EntityTypeConfiguration<Two>
+    public class TwoConfiguration : SchemaScopedConfiguration<Two>
     {
         public TwoConfiguration()
+            : base("NotDbo")
         {
             this.Property(e => e.Code).HasMaxLength(10);
         }
