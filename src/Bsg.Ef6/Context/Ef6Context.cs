@@ -127,7 +127,7 @@
             }
             else
             {
-                mappings.FullyQualifiedTableName = $"[{entityType.Name}]";
+                mappings.FullyQualifiedTableName = $"[dbo].[{entityType.Name}]";
             }
 
             return mappings;
@@ -142,7 +142,7 @@
 
             var entityTypesToMap =
                 this.GetTypesInContextImplementationAssembly()
-                    .Where(t => contextEntityType.IsAssignableFrom(t) && !wrapperType.IsAssignableFrom(t))
+                    .Where(t => t.IsClass && !t.IsAbstract && contextEntityType.IsAssignableFrom(t) && !wrapperType.IsAssignableFrom(t))
                     .ToList();
 
             var mappings = new ContextTableMappings();
