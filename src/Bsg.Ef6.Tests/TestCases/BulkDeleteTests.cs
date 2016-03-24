@@ -32,11 +32,11 @@
 
             alphaPrimaryRepo.BulkAdd(alphas);
 
+            var alphasToDeleteQuery = alphaPrimaryRepo.FindAll(e => e.IsActive);
+
             // Assume
             var activeAlphasBeforeDelete = alphaPrimaryRepo.CountAll(e => e.IsActive);
             Assert.That(activeAlphasBeforeDelete, Is.GreaterThan(0));
-
-            var alphasToDeleteQuery = alphaPrimaryRepo.FindAll(e => e.IsActive);
 
             // Action
             var recordsDeleted = alphaPrimaryRepo.BulkDelete(alphasToDeleteQuery);
