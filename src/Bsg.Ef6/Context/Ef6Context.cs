@@ -197,10 +197,10 @@
             var entityConfigurationsForContext =
                 types.Where(
                     t =>
-                    t.IsClass && !t.IsAbstract && t.BaseType != null && t.BaseType.IsGenericType
-                    && (t.BaseType.GetGenericTypeDefinition() == entityTypeConfigType)
-                    && t.BaseType.GenericTypeArguments.Length > 0
-                    && contextEntityType.IsAssignableFrom(t.BaseType.GenericTypeArguments[0])).ToList();
+                    t.IsClass 
+                    && !t.IsAbstract 
+                    && this.AreAnyBaseTypesOfEntityConfigForContext(t, entityTypeConfigType, contextEntityType))
+                    .ToList();
 
             foreach (var configurationType in entityConfigurationsForContext)
             {
@@ -252,6 +252,27 @@
         private IList<Type> GetTypesInContextImplementationAssembly()
         {
             return Assembly.GetAssembly(this.GetType()).GetTypes().ToList();
+        }
+
+        private bool AreAnyBaseTypesOfEntityConfigForContext(Type currentType, Type entityTypeConfigType, Type contextEntityType)
+        {
+            if (currentType.BaseType == null)
+            {
+                return false;
+            }
+
+            if (currentType.BaseType.IsGenericType
+                && currentType.BaseType.GetGenericTypeDefinition() == entityTypeConfigType
+                && currentType.BaseType.GenericTypeArguments.Length > 0
+                && contextEntityType.IsAssignableFrom(currentType.BaseType.GenericTypeArguments[0]))
+            {
+                return true;
+            }
+
+            return this.AreAnyBaseTypesOfEntityConfigForContext(
+                currentType.BaseType, 
+                entityTypeConfigType,
+                contextEntityType);
         }
 
         #endregion
