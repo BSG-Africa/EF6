@@ -69,6 +69,7 @@
     <Compile Include="Data\Entity\IPrimaryEntity.cs" />
     <Compile Include="Data\Repo\PrimaryRepository.cs" />
     <Compile Include="Extensions\ServiceProviderExtensions.cs" />
+    <Compile Include="TestCases\ContextSessionTests.cs" />
     <Compile Include="TestCases\TruncateTests.cs" />
     <Compile Include="TestCases\BulkSelectAndAddTests.cs" />
     <Compile Include="TestCases\BulkSelectAndUpdateTests.cs" />

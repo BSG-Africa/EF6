@@ -10,7 +10,6 @@
     using NUnit.Framework;
     using TestInfrastructure;
 
-    [TestFixture]
     public class TruncateTests : TestBase
     {
         #region Tests

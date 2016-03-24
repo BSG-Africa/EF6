@@ -11,7 +11,6 @@
     using Services;
     using TestInfrastructure;
 
-    [TestFixture]
     public class RepoVariantTests : TestBase
     {
         #region Tests

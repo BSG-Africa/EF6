@@ -7,7 +7,6 @@
     using NUnit.Framework;
     using TestInfrastructure;
 
-    [TestFixture]
     public class BulkAddTests : TestBase
     {
         #region Tests

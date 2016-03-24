@@ -10,7 +10,6 @@
     using NUnit.Framework;
     using TestInfrastructure;
 
-    [TestFixture]
     public class BulkSelectAndUpdateTests : TestBase
     {
         #region Tests

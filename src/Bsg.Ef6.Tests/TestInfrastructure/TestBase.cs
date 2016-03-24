@@ -10,6 +10,7 @@
     using Extensions;
     using NUnit.Framework;
 
+    [TestFixture]
     public class TestBase
     {
         private IServiceProvider applicationContainer;
