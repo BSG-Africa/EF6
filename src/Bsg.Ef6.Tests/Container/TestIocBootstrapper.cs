@@ -4,7 +4,6 @@
     using System.Reflection;
     using Autofac;
     using Context;
-    using Data.Entity;
     using Data.Repo;
     using Extensions;
     using Mapping;
