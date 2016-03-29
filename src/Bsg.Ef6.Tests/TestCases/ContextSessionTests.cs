@@ -11,7 +11,7 @@
     public class ContextSessionTests : TestBase
     {
         [Test]
-        public void EnsureSessionShareChangesWithRepositories()
+        public void EnsureSessionSharesChangesWithRepositories()
         {
             // Arrange
             var requestContainer = this.BuildRequestContainer();
@@ -64,7 +64,7 @@
         }
 
         [Test]
-        public void EnsureCommitChangesDoesNotUpdatedChangedNonTrackedEnties()
+        public void EnsureCommitChangesDoesNotUpdateChangedNonTrackedEntries()
         {
             // Arrange
             var requestContainer = this.BuildRequestContainer();
@@ -96,7 +96,7 @@
         }
 
         [Test]
-        public void EnsureCommitChangesUpdatesChangedTrackedEnties()
+        public void EnsureCommitChangesUpdatesChangedTrackedEntries()
         {
             // Arrange
             var requestContainer = this.BuildRequestContainer();
@@ -127,7 +127,7 @@
             Assert.That(reRetrievedAlpha.Name, Is.EqualTo("Changed Name"));
         }
 
-        public void EnsureCommitChangesDoesNotUpdateRevertedChangedTrackedEnties()
+        public void EnsureCommitChangesDoesNotUpdateRevertedChangedTrackedEntries()
         {
             // Arrange
             var requestContainer = this.BuildRequestContainer();
