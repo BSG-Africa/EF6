@@ -81,7 +81,7 @@
             }
 
             // Assert
-            Assert.That(gammaPrimaryRepo.CountAll(), Is.EqualTo(1));
+            Assert.That(gammaPrimaryRepo.CountAll(), Is.EqualTo(noOfRecordsToInsert));
         }
 
         [Test]
