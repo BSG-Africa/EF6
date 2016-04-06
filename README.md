@@ -88,7 +88,7 @@ which allow for bulk (many) and unique (per row) updates and inserts without sen
 The topics below should give a brief introduction to the more important components of the framework.
 Alternatively the Bsg.Ef6.Tests project can also be seen as a mini POC showing how to setup the IOC containers, how to create custom DbContexts, how to create domain entities, configurations, context repos, entities repos and most importantly how to use the various methods of the abstract bulk repos defined in the framework.
 
-*Note: the that all the Contexts (Primary, Secondary), Entities (Alpha, Beta, One, Two etc.) and all their properties within the test projectsare completely arbitary ito their names.*
+*Note: the that all the Contexts (Primary, Secondary), Entities (Alpha, Beta, One, Two etc.) and all their properties within the test project are completely arbitary ito their names.*
 
 
 ### DI & Built-In Services
