@@ -35,7 +35,7 @@ If all records are to be deleted consider using the **Truncate** methods.
 
 For **BulkUpdate**, when you need to update a selection (via a predicate expression or an IQueryable) of records with a constant update (i.e. same values for everyrow to be updated).
 
-If only 1 record is required to be updated consider using the standard EF chnage tracking functionality.
+If only 1 record is required to be updated consider using the standard EF change tracking functionality.
 
 If many records are to be updated uniquely (same properties but different values depending on the record to be updated) and these new values can be found from data already residing within the database, then consider using the **SelectAndUpdate** methods.
 
@@ -254,12 +254,13 @@ Extends off the standard *DbContext* and contains extended functionality to:
 - expose the generic *IDbSet*, to be used by the various repos
 
 ### Repository Pattern
+
+
+#### Generic Repository
 *TODO*
-### Generic Repository
+#### Context Repository
 *TODO*
-### Context Repository
-*TODO*
-### Entity Repository
+#### Entity Repository
 *TODO* 
 ### IWrapperEntity
 *TODO*
