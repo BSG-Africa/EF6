@@ -1,9 +1,11 @@
 ﻿namespace Bsg.Ef6.Context
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Timeout;
 
     public class ContextService : IContextService
     {
@@ -27,6 +29,25 @@
                 .Where(t => !t.IsAbstract && dbContextInterfaceType.IsAssignableFrom(t))
                 .ToList();
 
+            this.PreGenerateAllContextViews(contextTypes);
+        }
+
+        public void PreGenerateAllContextViews(params IDbContext[] contexts)
+        {
+            if (contexts == null)
+            {
+                throw new ArgumentNullException(nameof(contexts));
+            }
+
+            var contextTypes = contexts.Select(c => c.GetType())
+                .Where(t => !t.IsAbstract)
+                .ToList();
+
+            this.PreGenerateAllContextViews(contextTypes);
+        }
+
+        private void PreGenerateAllContextViews(IList<Type> contextTypes)
+        {
             foreach (var contextType in contextTypes)
             {
                 var genericBuildTimeoutsMethod = this.GetGenericMethodFromAction(() => this.dbContextFactory.BindViews<IDbContext>(), contextType);
