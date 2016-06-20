@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
-    using Timeout;
 
     public class ContextService : IContextService
     {
@@ -32,15 +31,17 @@
             this.PreGenerateAllContextViews(contextTypes);
         }
 
-        public void PreGenerateAllContextViews(params IDbContext[] contexts)
+        public void PreGenerateAllContextViews(params Type[] types)
         {
-            if (contexts == null)
+            if (types == null)
             {
-                throw new ArgumentNullException(nameof(contexts));
+                throw new ArgumentNullException(nameof(types));
             }
 
-            var contextTypes = contexts.Select(c => c.GetType())
-                .Where(t => !t.IsAbstract)
+            var dbContextInterfaceType = typeof(IDbContext);
+
+            var contextTypes = types
+                .Where(t => !t.IsAbstract && dbContextInterfaceType.IsAssignableFrom(t))
                 .ToList();
 
             this.PreGenerateAllContextViews(contextTypes);

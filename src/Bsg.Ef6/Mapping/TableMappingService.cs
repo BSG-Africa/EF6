@@ -6,7 +6,6 @@
     using System.Linq.Expressions;
     using System.Reflection;
     using Context;
-    using Timeout;
 
     public class TableMappingService : ITableMappingService
     {
@@ -37,15 +36,17 @@
             this.BuildAndCacheAllTableMappings(contextTypes);
         }
 
-        public void BuildAndCacheAllTableMappings(params IDbContext[] contexts)
+        public void BuildAndCacheAllTableMappings(params Type[] types)
         {
-            if (contexts == null)
+            if (types == null)
             {
-                throw new ArgumentNullException(nameof(contexts));
+                throw new ArgumentNullException(nameof(types));
             }
 
-            var contextTypes = contexts.Select(c => c.GetType())
-                .Where(t => !t.IsAbstract)
+            var dbContextInterfaceType = typeof(IDbContext);
+
+            var contextTypes = types
+                .Where(t => !t.IsAbstract && dbContextInterfaceType.IsAssignableFrom(t))
                 .ToList();
 
             this.BuildAndCacheAllTableMappings(contextTypes);

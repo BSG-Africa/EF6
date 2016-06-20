@@ -1,7 +1,6 @@
 ﻿namespace Bsg.Ef6.Timeout
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
@@ -37,15 +36,17 @@
             this.BuildAndCacheAllTimeouts(contextTypes);
         }
 
-        public void BuildAndCacheAllTimeouts(params IDbContext[] contexts)
+        public void BuildAndCacheAllTimeouts(params Type[] types)
         {
-            if (contexts == null)
+            if (types == null)
             {
-                throw new ArgumentNullException(nameof(contexts));
+                throw new ArgumentNullException(nameof(types));
             }
 
-            var contextTypes = contexts.Select(c => c.GetType())
-                .Where(t => !t.IsAbstract)
+            var dbContextInterfaceType = typeof(IDbContext);
+
+            var contextTypes = types
+                .Where(t => !t.IsAbstract && dbContextInterfaceType.IsAssignableFrom(t))
                 .ToList();
 
             this.BuildAndCacheAllTimeouts(contextTypes);
