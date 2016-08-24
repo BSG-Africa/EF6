@@ -6,8 +6,6 @@
     using Timeout;
     using Utils;
 
-    // TODO check performance from many typeOfs
-    // as well as the Activator.CreateInstance
     public class DbContextFactory : IDbContextFactory
     {
         private readonly IConfigurationService configService;
@@ -33,8 +31,8 @@
             // connection will be closed by the context
             var connection = this.BuildConnection<TContext>();
             var context = this.BuildContext<TContext>(connection, true);
-            context.SetCommandTimeout(this.timeoutCacheService.ContextTimeout<TContext>());
             this.AttachLogger<TContext>(context);
+            context.SetCommandTimeout(this.timeoutCacheService.ContextTimeout<TContext>());
 
             return context;
         }
