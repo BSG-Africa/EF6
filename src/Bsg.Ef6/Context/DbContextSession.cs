@@ -88,6 +88,11 @@
             return this.SafeContext.Database.ExecuteSqlCommand(TransactionalBehavior.EnsureTransaction, nonQuerySql, parameters);
         }
 
+        public bool HasCurrentTransaction()
+        {
+            return this.contextInstantiated && this.SafeContext.Database.CurrentTransaction != null;
+        }
+
         public IContextTransaction StartNewTransaction()
         {
             return new ContextTransaction(this.SafeContext.Database.BeginTransaction());

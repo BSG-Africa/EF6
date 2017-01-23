@@ -127,5 +127,51 @@
             Assert.That(gammaPrimaryRepo.CountAll(e => e.Category == someCategory), Is.EqualTo(0));
             Assert.That(gammaPrimaryRepo.CountAll(e => e.Category == otherCategory), Is.EqualTo(1));
         }
+
+        [Test]
+        public void EnsureHasCurrentTransactionReturnsFalseWhenNoTransactionCreated()
+        {
+            // Arrange
+            var requestContainer = this.BuildRequestContainer();
+            var contextSession = requestContainer.GetService<IDbContextSession<PrimaryContext>>();
+
+            // Assert
+            Assert.That(contextSession.HasCurrentTransaction(), Is.False);
+        }
+
+        [Test]
+        public void EnsureHasCurrentTransactionReturnsTrueWhenTransactionStarted()
+        {
+            // Arrange
+            var requestContainer = this.BuildRequestContainer();
+            var contextSession = requestContainer.GetService<IDbContextSession<PrimaryContext>>();
+            bool hasCurrentTransaction;
+
+            using (var transaction = contextSession.StartNewTransaction())
+            {
+                hasCurrentTransaction = contextSession.HasCurrentTransaction();
+            }
+
+            // Assert
+            Assert.That(hasCurrentTransaction, Is.True);
+        }
+
+        [Test]
+        public void EnsureHasCurrentTransactionReturnsFalseWhenCommitted()
+        {
+            // Arrange
+            var requestContainer = this.BuildRequestContainer();
+            var contextSession = requestContainer.GetService<IDbContextSession<PrimaryContext>>();
+
+            using (var transaction = contextSession.StartNewTransaction())
+            {
+                transaction.Commit();
+            }
+
+            var hasCurrentTransaction = contextSession.HasCurrentTransaction();
+
+            // Assert
+            Assert.That(hasCurrentTransaction, Is.False);
+        }
     }
 }

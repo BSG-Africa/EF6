@@ -25,5 +25,7 @@
         int ExecuteDirectNonQuery(string nonQuerySql, object[] parameters);
 
         IContextTransaction StartNewTransaction();
+
+        bool HasCurrentTransaction();
     }
 }
