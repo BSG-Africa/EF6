@@ -72,6 +72,11 @@
             return this.Execute(deleteQuery, queryWithPrimaryKeySelected.Item2, contextTransaction); 
         }
 
+        public int Truncate()
+        {
+            return this.Truncate(null);
+        }
+
         public int Truncate(IContextTransaction contextTransaction)
         {
             var tableName = this.GetMapping().FullyQualifiedTableName;
@@ -79,6 +84,11 @@
             var truncateQuery = $"TRUNCATE TABLE {tableName}";
 
             return this.Execute(truncateQuery, null, contextTransaction);
+        }
+
+        public int TruncateWithForeignKeys()
+        {
+            return this.TruncateWithForeignKeys(null);
         }
 
         public int TruncateWithForeignKeys(IContextTransaction contextTransaction)
@@ -179,9 +189,17 @@
            IEnumerable<ObjectParameter> parameters,
            IContextTransaction contextTransaction)
         {
-            return (contextTransaction == null)
-                ? this.ExecuteWithLocalTransaction(sql, parameters)
-                : this.ExecuteWithExternalTransaction(sql, parameters, contextTransaction);
+            if (contextTransaction == null)
+            {
+                if (this.session.HasCurrentTransaction())
+                {
+                    return this.ExecuteWithExternalTransaction(sql, parameters, this.session.CurrentTransaction());
+                }
+
+                return this.ExecuteWithLocalTransaction(sql, parameters);
+            }
+
+            return this.ExecuteWithExternalTransaction(sql, parameters, contextTransaction);
         }
 
         protected int ExecuteWithLocalTransaction(

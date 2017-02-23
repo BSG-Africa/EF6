@@ -93,6 +93,16 @@
             return this.contextInstantiated && this.SafeContext.Database.CurrentTransaction != null;
         }
 
+        public IContextTransaction CurrentTransaction()
+        {
+            if (this.HasCurrentTransaction())
+            {
+                return new ContextTransaction(this.SafeContext.Database.CurrentTransaction);
+            }
+
+            throw new InvalidOperationException("No transaction available.");
+        }
+
         public IContextTransaction StartNewTransaction()
         {
             return new ContextTransaction(this.SafeContext.Database.BeginTransaction());

@@ -113,9 +113,17 @@
 
         private int ExecuteAdd(IEnumerable<TEntity> items, int bufferSize, IContextTransaction contextTransaction)
         {
-            return (contextTransaction == null)
-                ? this.ExecuteAddWithLocalTransaction(items, bufferSize)
-                : this.ExceuteAddWithExternalTransaction(items, bufferSize, contextTransaction);
+            if (contextTransaction == null)
+            {
+                if (this.session.HasCurrentTransaction())
+                {
+                    return this.ExceuteAddWithExternalTransaction(items, bufferSize, this.session.CurrentTransaction());
+                }
+
+                return this.ExecuteAddWithLocalTransaction(items, bufferSize);
+            }
+
+            return this.ExceuteAddWithExternalTransaction(items, bufferSize, contextTransaction);
         }
 
         private int ExecuteAddWithLocalTransaction(IEnumerable<TEntity> items, int bufferSize)

@@ -27,5 +27,7 @@
         IContextTransaction StartNewTransaction();
 
         bool HasCurrentTransaction();
+
+        IContextTransaction CurrentTransaction();
     }
 }

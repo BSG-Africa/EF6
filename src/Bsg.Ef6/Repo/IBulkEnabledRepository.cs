@@ -35,7 +35,11 @@
 
         int BulkSelectAndUpdate(IQueryable query, IContextTransaction contextTransaction);
 
+        int Truncate();
+
         int Truncate(IContextTransaction contextTransaction);
+
+        int TruncateWithForeignKeys();
 
         int TruncateWithForeignKeys(IContextTransaction contextTransaction);
     }
