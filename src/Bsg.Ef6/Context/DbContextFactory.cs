@@ -3,6 +3,7 @@
     using System;
     using System.Data.Common;
     using System.Diagnostics.CodeAnalysis;
+    using Connection;
     using Timeout;
     using Utils;
 

@@ -6,6 +6,6 @@
     {
         string RetrieveAppSetting(string appSettingKey);
 
-        ConnectionStringSettings RetrieveConnectionString(string connectionName);
+        ConnectionStringSettings RetrieveConnectionSettings(string connectionName);
     }
 }

@@ -59,6 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection\MsSqlConnectionFactory.cs" />
+    <Compile Include="Connection\NonMsSqlConnectionFactory.cs" />
+    <Compile Include="Connection\INonMsSqlConnectionFactory.cs" />
+    <Compile Include="Connection\IMsSqlConnectionFactory.cs" />
     <Compile Include="Context\ContextService.cs" />
     <Compile Include="Context\IContextService.cs" />
     <Compile Include="Mapping\ITableMappingService.cs" />
@@ -77,7 +81,7 @@
     <Compile Include="Utils\BulkInserterFactory.cs" />
     <Compile Include="Repo\BulkInsertRepository.cs" />
     <Compile Include="Context\ContextTransaction.cs" />
-    <Compile Include="Utils\DatabaseConnectionFactory.cs" />
+    <Compile Include="Connection\DatabaseConnectionFactory.cs" />
     <Compile Include="Context\Ef6Context.cs" />
     <Compile Include="Context\DbContextFactory.cs" />
     <Compile Include="Context\DbContextSession.cs" />
@@ -86,7 +90,7 @@
     <Compile Include="Utils\IBulkInserterFactory.cs" />
     <Compile Include="Repo\IBulkInsertRepository.cs" />
     <Compile Include="Context\IContextTransaction.cs" />
-    <Compile Include="Utils\IDatabaseConnectionFactory.cs" />
+    <Compile Include="Connection\IDatabaseConnectionFactory.cs" />
     <Compile Include="Context\IDbContext.cs" />
     <Compile Include="Context\IDbContextFactory.cs" />
     <Compile Include="Context\IDbContextSession.cs" />

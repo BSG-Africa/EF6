@@ -16,7 +16,7 @@
             return value;
         }
 
-        public ConnectionStringSettings RetrieveConnectionString(string connectionName)
+        public ConnectionStringSettings RetrieveConnectionSettings(string connectionName)
         {
             return ConfigurationManager.ConnectionStrings[connectionName];
         }

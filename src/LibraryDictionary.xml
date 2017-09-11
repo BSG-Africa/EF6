@@ -11,7 +11,12 @@
       <Word>tcontext</Word>
       <Word>autofac</Word>
       <Word>ioc</Word>
+      <Word>ms</Word>
+      <Word>mssql</Word>
     </Recognized>
+    <Compound>
+      <Term CompoundAlternate="MsSql">mssql</Term>
+    </Compound>
   </Words>
 </Dictionary>
 
