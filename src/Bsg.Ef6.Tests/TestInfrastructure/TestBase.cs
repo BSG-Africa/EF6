@@ -15,7 +15,7 @@
     {
         private IServiceProvider applicationContainer;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             Database.SetInitializer(new DropCreateDatabaseAlways<PrimaryContext>());
@@ -23,7 +23,7 @@
             this.applicationContainer = new TestIocBootstrapper().BuildAutofacContainer();
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void Teardown()
         {
             var contextFactory = this.BuildRequestContainer().GetService<IDbContextFactory>();
